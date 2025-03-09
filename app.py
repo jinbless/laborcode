@@ -4,6 +4,9 @@ import openai
 # OpenAI API 키를 Streamlit Cloud의 Secrets에서 가져오기
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
+# OpenAI 클라이언트 생성 (1.0.0 이상 버전 방식)
+client = openai.OpenAI(api_key=OPENAI_API_KEY)
+
 # Streamlit 웹앱 제목
 st.title("💬 AI노동법 지원단")
 
