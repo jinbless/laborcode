@@ -2,7 +2,7 @@ import streamlit as st
 import openai
 
 # ✅ 비밀번호 가져오기 (Streamlit Secrets에서 가져오기)
-PASSWORD = st.secrets["authentication"]["password"]
+PASSWORD = st.secrets["password"]
 
 # 🌟 비밀번호 입력 창
 if "authenticated" not in st.session_state:
