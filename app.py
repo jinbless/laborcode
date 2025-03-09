@@ -1,9 +1,6 @@
 import streamlit as st
 import openai
 
-import streamlit as st
-import openai
-
 # ✅ 비밀번호 가져오기 (Streamlit Secrets에서 가져오기)
 PASSWORD = st.secrets["authentication"]["password"]
 
