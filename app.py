@@ -14,10 +14,13 @@ st.set_page_config(
 hide_streamlit_style = """
     <style>
         #MainMenu {visibility: hidden;}  /* ☰ Streamlit 기본 메뉴 숨김 */
-        footer {visibility: hidden;}  /* 하단 "hosted with Streamlit" 숨김 */
         header {visibility: hidden;}  /* 상단 헤더 숨김 */
+        footer {visibility: hidden;}  /* 하단 "hosted with Streamlit" 숨김 */
         .stDeployButton {display: none !important;}  /* 🔹 우측 하단 "Manage App" 버튼 숨김 */
-        [data-testid="stAppViewBlockContainer"] > [data-testid="stHorizontalBlock"] {display: none;}  /* 🔹 프로필 및 기타 정보 숨김 */
+        
+        /* 🔹 프로필 및 기타 우측 하단 요소 숨김 */
+        [data-testid="stAppViewBlockContainer"] > [data-testid="stHorizontalBlock"] {display: none !important;}
+        [data-testid="stFooter"] {display: none !important;}
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
