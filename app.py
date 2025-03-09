@@ -1,11 +1,11 @@
 import streamlit as st
 import openai
 
-# OpenAI API 키 입력 (직접 입력보다는 환경 변수 사용 권장)
-OPENAI_API_KEY = "your_openai_api_key"
+# OpenAI API 키를 Streamlit Cloud의 Secrets에서 가져오기
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
-# 웹앱 제목
-st.title("💬 ChatGPT 웹앱 (Streamlit)")
+# Streamlit 웹앱 제목
+st.title("💬 AI노동법 상담소 개선 지원단")
 
 # 세션 상태에서 대화 기록 유지
 if "messages" not in st.session_state:
