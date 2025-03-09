@@ -23,7 +23,7 @@ if not st.session_state.authenticated:
 
 # ✅ 인증된 사용자만 접근 가능
 st.title("🔬 AI노동법 지원단")
-st.write("✅ 인증되었습니다! 챗봇을 사용하세요.")
+st.write("✅ 인증되었습니다.")
 
 # OpenAI API 키 설정
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
