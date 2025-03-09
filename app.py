@@ -20,8 +20,8 @@ with st.sidebar:
     # 최대 토큰 제한 (고정값)
     max_tokens = 1024
 
-    # 시스템 프롬프트 입력란
-    system_prompt_input = st.text_area("🔹 시스템 프롬프트", "지식데이터를 넣으세요.")
+    # 시스템 프롬프트 입력란 (사이드바에서 입력)
+    system_prompt_input = st.text_area("🔹 시스템 프롬프트 입력", "지식데이터를 넣으세요.", height=150)
 
     # 저장 버튼 (누르면 세션 상태에 저장됨)
     if st.button("💾 저장"):
@@ -35,8 +35,13 @@ if "system_prompt" not in st.session_state:
 # 🌟 웹앱 제목
 st.title("🔬 AI노동법 지원단")
 
-# 🔹 시스템 프롬프트 표시 (타이틀 바로 아래)
-st.markdown(f"**📝 현재 시스템 프롬프트:** {st.session_state.system_prompt}")
+# 📝 시스템 프롬프트를 타이틀 아래 `text_area(height=150)`로 표시
+st.markdown("### 📝 현재 시스템 프롬프트")
+updated_system_prompt = st.text_area("", st.session_state.system_prompt, height=150)
+
+# 저장된 시스템 프롬프트 업데이트 반영
+if updated_system_prompt != st.session_state.system_prompt:
+    st.session_state.system_prompt = updated_system_prompt
 
 # 세션 상태에서 대화 기록 유지
 if "messages" not in st.session_state:
@@ -52,7 +57,7 @@ if user_input := st.chat_input("메시지를 입력하세요..."):
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.chat_message("user").write(user_input)
 
-    # GPT API 호출
+    # GPT API 호출 (고정된 설정값 사용)
     with st.spinner("GPT가 답변을 생성 중입니다..."):
         try:
             response = client.chat.completions.create(
