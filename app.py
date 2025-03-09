@@ -7,7 +7,7 @@ OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 # OpenAI 클라이언트 생성 (1.0.0 버전 방식)
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
-# 🌟 사이드바에서 설정 옵션 추가
+# 사이드바에서 설정 옵션 추가
 with st.sidebar:
     st.header("⚙️ 설정")
     
@@ -31,7 +31,7 @@ with st.sidebar:
             st.session_state.system_prompt = system_prompt_input
             st.success("✅ 시스템 프롬프트가 저장되었습니다.")
 
-# 🌟 웹앱 제목
+# 웹앱 제목
 st.title("🔬 AI노동법 지원단")
 
 # 사용자가 시스템 프롬프트를 저장하지 않았다면 경고 메시지 표시
@@ -65,7 +65,7 @@ else:
             except Exception as e:
                 st.error(f"오류 발생: {str(e)}")
 
-# 🔄 대화 리셋 버튼 추가
+# 대화 리셋 버튼 추가
 if st.sidebar.button("🗑️ 대화 기록 초기화"):
     st.session_state.messages = [{"role": "system", "content": st.session_state.system_prompt}]
-    st.experimental_rerun()
+    st.rerun()
