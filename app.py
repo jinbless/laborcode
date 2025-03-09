@@ -1,6 +1,30 @@
 import streamlit as st
 import openai
 
+import streamlit as st
+import openai
+
+# ✅ 비밀번호 가져오기 (Streamlit Secrets에서 가져오기)
+PASSWORD = st.secrets["authentication"]["password"]
+
+# 🌟 비밀번호 입력 창
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    user_password = st.text_input("🔑 비밀번호를 입력하세요:", type="password")
+    if st.button("로그인"):
+        if user_password == PASSWORD:
+            st.session_state.authenticated = True
+            st.rerun()  # 인증 후 페이지 새로고침
+        else:
+            st.warning("❌ 비밀번호가 틀렸습니다. 다시 시도하세요.")
+    st.stop()  # 🔹 인증이 안 되면 앱 실행 중단
+
+# ✅ 인증된 사용자만 접근 가능
+st.title("🔬 AI노동법 지원단")
+st.write("✅ 인증되었습니다! 챗봇을 사용하세요.")
+
 # OpenAI API 키 설정
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
