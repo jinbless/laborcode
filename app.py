@@ -7,24 +7,8 @@ st.set_page_config(
     page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="expanded",
-    menu_items={"Get Help": None, "Report a bug": None, "About": None}  # ✅ 기본 메뉴 제거
+    menu_items={"Get Help": None, "Report a bug": None, "About": None} 
 )
-
-# CSS로 Streamlit UI 요소 숨기기
-hide_streamlit_style = """
-    <style>
-        #MainMenu {visibility: hidden;}  /* ☰ Streamlit 기본 메뉴 숨김 */
-        header {visibility: hidden;}  /* 상단 헤더 숨김 */
-        footer {visibility: hidden;}  /* 하단 "hosted with Streamlit" 숨김 */
-        .stDeployButton {display: none !important;}  /* 🔹 우측 하단 "Manage App" 버튼 숨김 */
-        
-        /* 🔹 프로필 및 기타 우측 하단 요소 숨김 */
-        [data-testid="stAppViewBlockContainer"] > [data-testid="stHorizontalBlock"] {display: none !important;}
-        [data-testid="stFooter"] {display: none !important;}
-    </style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
 
 # 비밀번호 가져오기 (Streamlit Secrets에서 가져오기)
 PASSWORD = st.secrets["password"]
