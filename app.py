@@ -25,7 +25,7 @@ if user_input := st.chat_input("질문을 입력하세요"):
     with st.spinner("GPT가 답변을 생성 중입니다..."):
         try:
             response = openai.ChatCompletion.create(
-                model="gpt-4",
+                model="gpt-4o",
                 messages=st.session_state.messages,
                 api_key=OPENAI_API_KEY,
             )
