@@ -7,22 +7,40 @@ OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 # OpenAI 클라이언트 생성 (1.0.0 버전 방식)
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
-# 좌측 상단에 설정값 고정 표시
-st.sidebar.header("⚙️ 설정 (고정)")
-st.sidebar.write("📌 모델: **gpt-4o**")
-st.sidebar.write("📌 Temperature: **0.0** (가장 논리적인 응답)")
-st.sidebar.write("📌 최대 토큰 수: **1024**")
+# 🌟 사이드바에서 설정 옵션 추가
+with st.sidebar:
+    st.header("⚙️ 설정")
+    
+    # 모델 선택 옵션 (고정값)
+    model = "gpt-4o"
 
-# 시스템 프롬프트 입력란 (더 넓게 설정)
-st.markdown("### 📝 시스템 프롬프트 설정")
-system_prompt = st.text_area(
-    "지식데이터를 붙여넣으세요.",
-    height=150  # 높이를 더 크게 설정
-)
+    # Temperature 설정 (고정값)
+    temperature = 0.0
+
+    # 최대 토큰 제한 (고정값)
+    max_tokens = 1024
+
+    # 시스템 프롬프트 입력란
+    system_prompt_input = st.text_area("🔹 시스템 프롬프트", "지식데이터를 넣으세요.")
+
+    # 저장 버튼 (누르면 세션 상태에 저장됨)
+    if st.button("💾 저장"):
+        st.session_state.system_prompt = system_prompt_input
+        st.success("시스템 프롬프트가 저장되었습니다.")
+
+# 세션 상태에서 시스템 프롬프트 기본값 설정
+if "system_prompt" not in st.session_state:
+    st.session_state.system_prompt = "지식데이터를 넣으세요."
+
+# 🌟 웹앱 제목
+st.title("🔬 AI노동법 지원단")
+
+# 🔹 시스템 프롬프트 표시 (타이틀 바로 아래)
+st.markdown(f"**📝 현재 시스템 프롬프트:** {st.session_state.system_prompt}")
 
 # 세션 상태에서 대화 기록 유지
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": system_prompt}]
+    st.session_state.messages = [{"role": "system", "content": st.session_state.system_prompt}]
 
 # 채팅 기록 표시
 for msg in st.session_state.messages:
@@ -34,14 +52,14 @@ if user_input := st.chat_input("메시지를 입력하세요..."):
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.chat_message("user").write(user_input)
 
-    # GPT API 호출 (고정된 설정값 사용)
+    # GPT API 호출
     with st.spinner("GPT가 답변을 생성 중입니다..."):
         try:
             response = client.chat.completions.create(
-                model="gpt-4o",  # 고정
+                model=model,
                 messages=st.session_state.messages,
-                temperature=0.0,  # 고정 (논리적인 응답)
-                max_tokens=1024  # 고정 (최대 1024 토큰)
+                temperature=temperature,
+                max_tokens=max_tokens
             )
             bot_reply = response.choices[0].message.content
 
@@ -51,7 +69,7 @@ if user_input := st.chat_input("메시지를 입력하세요..."):
         except Exception as e:
             st.error(f"오류 발생: {str(e)}")
 
-# 🗑️ 대화 기록 초기화 버튼 (위치 유지)
+# 🔄 대화 리셋 버튼 추가
 if st.sidebar.button("🗑️ 대화 기록 초기화"):
-    st.session_state.messages = [{"role": "system", "content": system_prompt}]
+    st.session_state.messages = [{"role": "system", "content": st.session_state.system_prompt}]
     st.experimental_rerun()
