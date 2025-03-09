@@ -5,7 +5,7 @@ import openai
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 # Streamlit 웹앱 제목
-st.title("💬 AI노동법 상담소 개선 지원단")
+st.title("💬 AI노동법 지원단")
 
 # 세션 상태에서 대화 기록 유지
 if "messages" not in st.session_state:
