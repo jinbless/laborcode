@@ -1,10 +1,32 @@
 import streamlit as st
 import openai
 
-# ✅ 비밀번호 가져오기 (Streamlit Secrets에서 가져오기)
+# Streamlit 기본 설정
+st.set_page_config(
+    page_title="AI노동법 지원단",
+    page_icon="⚖️",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={"Get Help": None, "Report a bug": None, "About": None}  # ✅ 기본 메뉴 제거
+)
+
+# CSS로 Streamlit UI 요소 숨기기
+hide_streamlit_style = """
+    <style>
+        #MainMenu {visibility: hidden;}  /* ☰ Streamlit 기본 메뉴 숨김 */
+        footer {visibility: hidden;}  /* 하단 "hosted with Streamlit" 숨김 */
+        header {visibility: hidden;}  /* 상단 헤더 숨김 */
+        .stDeployButton {display: none !important;}  /* 🔹 우측 하단 "Manage App" 버튼 숨김 */
+        [data-testid="stAppViewBlockContainer"] > [data-testid="stHorizontalBlock"] {display: none;}  /* 🔹 프로필 및 기타 정보 숨김 */
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
+# 비밀번호 가져오기 (Streamlit Secrets에서 가져오기)
 PASSWORD = st.secrets["password"]
 
-# 🌟 비밀번호 입력 창
+# 비밀번호 입력 창
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
@@ -18,7 +40,7 @@ if not st.session_state.authenticated:
             st.warning("❌ 비밀번호가 틀렸습니다. 다시 시도하세요.")
     st.stop()  # 🔹 인증이 안 되면 앱 실행 중단
 
-# ✅ 인증된 사용자만 접근 가능
+# 인증된 사용자만 접근 가능
 st.write("✅ 인증되었습니다.")
 
 # OpenAI API 키 설정
