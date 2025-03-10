@@ -72,7 +72,7 @@ with st.sidebar:
             st.success("✅ 시스템 프롬프트가 저장되었습니다.")
 
 # 웹앱 제목
-st.title("🔬 AI노동법 지원단")
+st.title("🔬 AI노동법 지원단 GPT")
 
 # 사용자가 시스템 프롬프트를 저장하지 않았다면 경고 메시지 표시
 if "system_prompt" not in st.session_state or st.session_state.system_prompt.strip() == "":
