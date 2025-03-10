@@ -104,8 +104,14 @@ else:
                 st.chat_message("assistant").write(bot_reply)
             except Exception as e:
                 st.error(f"오류 발생: {str(e)}")
-
+    
 # 대화 리셋 버튼 추가
 if st.sidebar.button("🗑️ 대화 기록 초기화"):
-    st.session_state.messages = [{"role": "system", "content": st.session_state.system_prompt}]
-    st.rerun()
+    st.session_state.pop("messages", None)  # 대화 기록 초기화
+    st.session_state.pop("system_prompt", None)  # 시스템 프롬프트도 초기화
+    st.rerun()  # 페이지 새로고침
+    
+# # 대화 리셋 버튼 추가
+# if st.sidebar.button("🗑️ 대화 기록 초기화"):
+#     st.session_state.messages = [{"role": "system", "content": st.session_state.system_prompt}]
+#     st.rerun()
