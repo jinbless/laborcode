@@ -102,7 +102,6 @@ else:
                 
                 # GPT admin log용도
                 print(response.choices[0].message.content)
-                print(response.output_text)
 
                 # 대화 기록에 GPT 응답 추가
                 st.session_state.messages.append({"role": "assistant", "content": bot_reply})
