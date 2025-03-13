@@ -59,6 +59,12 @@ else:
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "system", "content": st.session_state.system_prompt}]
 
+    for message in st.session_state.messages:
+        if message["role"] == "user":
+            st.chat_message("user").write(message["content"])
+        elif message["role"] == "assistant":
+            st.chat_message("assistant").write(message["content"])
+
     if user_input := st.chat_input("메시지를 입력하세요..."):
         st.session_state.messages.append({"role": "user", "content": user_input})
         st.chat_message("user").write(user_input)
