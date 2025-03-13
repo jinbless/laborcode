@@ -49,7 +49,7 @@ with st.sidebar:
             st.warning("⚠️ system_prompt에 지식데이터를 넣으세요!")
         else:
             st.session_state.system_prompt = system_prompt_input
-            st.success("✅ 시스템 프롬프트가 저장되었습니다. 대화가 10회를 초과하면 강제 초기화 됩니다.")
+            st.success("✅ 시스템 프롬프트가 저장되었습니다. 대화가 5회를 초과하면 강제 초기화 됩니다.")
 
 st.title("🔬 AI노동법 지원단 GPT")
 
