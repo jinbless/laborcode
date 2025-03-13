@@ -93,7 +93,7 @@ else:
             try:
                 response = client.chat.completions.create(
                     model=model,
-                    messages=[{"role": "system", "content": st.session_state.system_prompt}] + st.session_state.messages,
+                    messages=st.session_state.messages,
                     temperature=temperature,
                     max_tokens=max_tokens
                 )
